@@ -1,7 +1,6 @@
 ---
-import '../styles/global.css';
-
-const pageTitle = "私について";
+import BaseLayout from '../layouts/BaseLayout.astro';
+const pageTitle = "About Me";
 
 const identity = {
   firstName: "いよかん",
@@ -21,12 +20,9 @@ const fontWeight = "bold";
 const textCase = "uppercase";
 
 ---
-
-<html lang="ja">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>{pageTitle}</title>
+<BaseLayout pageTitle={pageTitle}>
+  <h2>私の素晴らしいブログのサブタイトル</h2>
+</BaseLayout>
 
         <style define:vars={{skillColor, fontWeight, textCase}}>
             h1 {
@@ -40,14 +36,6 @@ const textCase = "uppercase";
             }
           </style>
 
-	</head>
-	<body>
-
-        <a href="/">ホーム</a>
-        <a href="/about/">概要</a>
-        <a href="/blog/">ブログ</a>
-
-		<h1>{pageTitle}</h1>
         <h2>... そして私の新しいAstroサイトについて!</h2>
 
         <p>私はAstroの入門チュートリアルを進めています。これは私のウェブサイトの2番目のページで、自分で作った初めてのページです!</p>
@@ -70,6 +58,3 @@ const textCase = "uppercase";
           {happy && <p>I am happy to be learning Astro! Astroを学べて幸せです！</p>}
           {finished && <p>I finished this tutorial! このチュートリアルを終えました！</p>}
           {goal === 3 ? <p>My goal is to finish in 3 days. 3日で終えるのが目標です。</p> : <p>My goal is not 3 days. 3日が目標ではありません。</p>}
-
-	  </body>
-</html>

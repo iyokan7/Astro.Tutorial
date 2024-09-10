@@ -1,6 +1,7 @@
 ---
+layout: ../../layouts/MarkdownPostLayout.astro
 title: 私の2番目のブログ記事
-author: Astro学習者
+author: いよかん
 description: "Astroを少し学んだら、止まらなくなりました！"
 image:
     url: "https://docs.astro.build/assets/arc.webp"
