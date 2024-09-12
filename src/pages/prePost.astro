@@ -1,0 +1,46 @@
+---
+const handledErrors = ['invalid username'];//必須入力にしてるつもり
+
+let username = '';
+let errorMessage = '';
+
+try {
+  if (Astro.request.method === 'POST') {
+    const formData = await Astro.request.formData();
+    const username = formData.get('username');
+
+    if (typeof username !== 'string' || username === '') {
+      throw new Error('invalid username');
+    }
+  }
+} catch (error) {
+  if (error instanceof Error && handledErrors.includes(error.message)) {
+    errorMessage = error.message;
+  } else {
+    console.error(error);
+  }
+}
+---
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>POSTデータのテスト</title>
+  </head>
+  <body>
+    <h1>Postの練習</h1>
+    {Astro.request.method === 'POST' && errorMessage === '' ? (
+      <p>ユーザー名は {username} です</p>
+    ) : (
+      <form action="/preGet" method="get">  <!-- actionで送りたいページのURLを指定してGETリクエストを送る -->
+        <label>
+          ユーザー名:
+          <input type="text" name="username" />
+        </label>
+        {errorMessage === 'invalid username' && (<p>ユーザー名を入力してください</p>)}
+        <button type="submit">Submit</button>
+      </form>
+    )}
+  </body>
+</html>

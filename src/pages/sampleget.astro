@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+// import {registerUser } from '../../data/users'
+const pageTitle = "Getの練習";
+
+const errors = { username: ""};
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    const name = data.get("username");
+    if (typeof name !== "string" || name.length < 1) {
+      errors.username += "Please enter a username. ";
+    }
+    const hasErrors = Object.values(errors).some(msg => msg)
+    if (!hasErrors) {
+    //   await registerUser({name});
+      return Astro.redirect("/sampleget");
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
+---
+<BaseLayout pageTitle={pageTitle}>
+    <h1>Register</h1>
+    <form method="POST">
+      <label>
+        Username:
+        <input type="text" name="username" />
+      </label>
+      {errors.username && <p>{errors.username}</p>}
+      <button>Register</button>
+    </form>
+</BaseLayout>
